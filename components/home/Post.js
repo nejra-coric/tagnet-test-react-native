@@ -4,7 +4,7 @@ import React from 'react'
 const Post = () => {
   return (
     <View>
-      <Text style={{color: 'white'}}>Post</Text>
+      <Text style={{color: 'white'}}>POST</Text>
     </View>
   )
 }
