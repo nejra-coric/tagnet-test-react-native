@@ -30,23 +30,38 @@ export const bottomTabIcons = [
 ];
 
 const BottomTabs = ({ icons }) => {
-  const [activeTab, setActiveTab] = useState('Home'); 
+  const [activeTab, setActiveTab] = useState('Home');
 
   const Icon = ({ icon }) => (
-    <TouchableOpacity onPress={() => setActiveTab(icon.name)}>
-      <Image 
-        source={activeTab === icon.name ? icon.active : icon.inactive} 
-        style={styles.icon} 
+    <TouchableOpacity
+      onPress={() => {
+        setActiveTab(icon.name);
+        if (icon.name === 'Profile') {
+          navigation.navigate('ProfileScreen'); 
+        } else if (icon.name === 'Home') {
+          navigation.navigate('HomeScreen'); 
+        }
+      }}
+    >
+      <Image
+        source={activeTab === icon.name ? icon.active : icon.inactive}
+        style={[
+          styles.icon,
+          icon.name === 'Profile' ? styles.profilePic() : null,
+          activeTab === 'Profile' && icon.name === activeTab
+            ? styles.profilePic(activeTab)
+            : null,
+        ]}
       />
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
-      {icons.map((icon, index) => (
-        <Icon key={index} icon={icon} />
-      ))}
-    </View>
+      <View style={styles.container}>
+        {icons.map((icon, index) => (
+          <Icon key={index} icon={icon} />
+        ))}
+      </View>
   );
 };
 
@@ -61,6 +76,11 @@ const styles = StyleSheet.create({
     width: 27,
     height: 27,
   },
+  profilePic: (activeTab = '') => ({
+    borderRadius: 50,
+    borderWidth:  activeTab === 'Profile' ? 2: 0,
+    borderColor: '#fff',
+  }),
 });
 
 export default BottomTabs;
