@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './screens/ProfileScreen';
 import HomeScreen from './screens/HomeScreen';
+import RestaurantProfileScreen from './screens/RestaurantProfileScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -12,9 +13,10 @@ const screenOptions = {
 
 const SignedInStack = () => (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName = 'ProfileScreen' screenOptions = {screenOptions}>
-        <Stack.Screen name = 'HomeScreen' component = {HomeScreen} />
-            <Stack.Screen name = 'ProfileScreen' component = {ProfileScreen} />
+        <Stack.Navigator initialRouteName='RestaurantProfileScreen' screenOptions={screenOptions}>
+            <Stack.Screen name='HomeScreen' component={HomeScreen} />
+            <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+            <Stack.Screen name='RestaurantProfileScreen' component={RestaurantProfileScreen} />
         </Stack.Navigator>
     </NavigationContainer>
 )
