@@ -4957,6 +4957,11 @@ react-native-gesture-handler@^2.21.2, react-native-gesture-handler@>=2.16.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-pager-view@^6.6.1:
+  version "6.6.1"
+  resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.6.1.tgz"
+  integrity sha512-2dFulYs8JxEUecemv1PGWCUv+ZQuwSaQfFiSr2++KH8km5HzpuS8vJ3MVb0M6UhpqacFDj9OGe7z97ks/mr7gA==
+
 react-native-reanimated@^3.16.6, react-native-reanimated@>=3.16.0:
   version "3.16.6"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.16.6.tgz"
