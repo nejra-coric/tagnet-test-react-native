@@ -5,6 +5,7 @@ const RestaurantProfile = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
+    const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
     const scrollViewRef = useRef();
 
@@ -78,29 +79,60 @@ const RestaurantProfile = () => {
 
             {/* Buttons */}
             <View style={styles.buttonContainer}>
-            <TouchableOpacity
-                style={[
-                    styles.buttonFollow,
-                    isFollowing && styles.buttonFollowing, // Dodaj sivu boju ako prati
-                ]}
-                onPress={handlePress}
-            >
-                <Text
+                <TouchableOpacity
                     style={[
-                        styles.buttonText,
-                        isFollowing && styles.buttonTextFollowing, // Dodaj siv tekst ako prati
+                        styles.buttonFollow,
+                        isFollowing && styles.buttonFollowing, // Dodaj sivu boju ako prati
                     ]}
+                    onPress={handlePress}
                 >
-                    {isFollowing ? 'Pratim' : 'Prati'}
-                </Text>
-            </TouchableOpacity>
+                    <Text
+                        style={[
+                            styles.buttonText,
+                            isFollowing && styles.buttonTextFollowing, // Dodaj siv tekst ako prati
+                        ]}
+                    >
+                        {isFollowing ? 'Pratim' : 'Prati'}
+                    </Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Poruka</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.buttonReserve}>
+            <TouchableOpacity
+                style={styles.buttonReserve}
+                onPress={() => setBottomSheetVisible(true)} // <-- Show bottom sheet
+            >
                 <Text style={styles.buttonText}>Rezervisi</Text>
             </TouchableOpacity>
+
+            {/* Bottom Sheet Modal */}
+            <Modal
+                transparent
+                visible={bottomSheetVisible}
+                animationType="slide"
+                onRequestClose={() => setBottomSheetVisible(false)}
+            >
+                <View style={styles.bottomSheetOverlay}>
+                    <TouchableOpacity
+                        style={styles.bottomSheetBackgroundTouchable}
+                        onPress={() => setBottomSheetVisible(false)}
+                    />
+
+                    {/* Actual bottom sheet container */}
+                    <View style={styles.bottomSheetContainer}>
+                        {/* Your bottom sheet content goes here */}
+                        <Text style={{ fontSize: 16, marginBottom: 20 }}>
+                            Ovdje ide sadržaj rezervacije...
+                        </Text>
+
+                        <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
+                            <Text style={{ color: 'blue', fontWeight: 'bold' }}>Zatvori</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
 
             <TouchableOpacity
                 style={styles.buttonOrder}
@@ -414,13 +446,13 @@ const styles = StyleSheet.create({
     },
     alertButtonText: {
         fontSize: 16,
-        color: '#0195F5', 
+        color: '#0195F5',
         textAlign: 'center',
         fontWeight: 'bold'
     },
     alertButtonText2: {
         fontSize: 16,
-        color: '#030303', 
+        color: '#030303',
         textAlign: 'center',
         fontWeight: 'bold'
     },
@@ -494,11 +526,11 @@ const styles = StyleSheet.create({
     },
 
     buttonFollowing: {
-        backgroundColor: '#d3d3d3', 
+        backgroundColor: '#d3d3d3',
     },
 
     buttonTextFollowing: {
-        color: '#606060', 
+        color: '#606060',
     },
 
     buttonReserve: {
@@ -872,6 +904,22 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
 
+    bottomSheetOverlay: {
+        flex: 1,
+        justifyContent: 'flex-end',        // Align to the bottom
+        backgroundColor: 'rgba(0, 0, 0, 0.5)' // Dimmed backdrop
+      },
+      bottomSheetBackgroundTouchable: {
+        // This "invisible" area above the bottom sheet is tappable for closing
+        flex: 1
+      },
+      bottomSheetContainer: {
+        height: '85%',                     // 85% of the screen height
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        padding: 16
+      },      
 
 });
 
