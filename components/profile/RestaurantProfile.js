@@ -82,14 +82,14 @@ const RestaurantProfile = () => {
                 <TouchableOpacity
                     style={[
                         styles.buttonFollow,
-                        isFollowing && styles.buttonFollowing, // Dodaj sivu boju ako prati
+                        isFollowing && styles.buttonFollowing, 
                     ]}
                     onPress={handlePress}
                 >
                     <Text
                         style={[
                             styles.buttonText,
-                            isFollowing && styles.buttonTextFollowing, // Dodaj siv tekst ako prati
+                            isFollowing && styles.buttonTextFollowing,
                         ]}
                     >
                         {isFollowing ? 'Pratim' : 'Prati'}
@@ -101,12 +101,11 @@ const RestaurantProfile = () => {
             </View>
             <TouchableOpacity
                 style={styles.buttonReserve}
-                onPress={() => setBottomSheetVisible(true)} // <-- Show bottom sheet
+                onPress={() => setBottomSheetVisible(true)} 
             >
                 <Text style={styles.buttonText}>Rezervisi</Text>
             </TouchableOpacity>
 
-            {/* Bottom Sheet Modal */}
             <Modal
                 transparent
                 visible={bottomSheetVisible}
@@ -119,9 +118,7 @@ const RestaurantProfile = () => {
                         onPress={() => setBottomSheetVisible(false)}
                     />
 
-                    {/* Actual bottom sheet container */}
                     <View style={styles.bottomSheetContainer}>
-                        {/* Your bottom sheet content goes here */}
                         <Text style={{ fontSize: 16, marginBottom: 20 }}>
                             Ovdje ide sadržaj rezervacije...
                         </Text>
@@ -149,17 +146,13 @@ const RestaurantProfile = () => {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.alertBox}>
-                        {/* Ikona */}
                         <Image
                             source={require('../../assets/complete.png')}
                             style={styles.alertIcon}
                         />
-                        {/* Boldirani naslov */}
                         <Text style={styles.alertTitle}>Prijava na stol 12?</Text>
-                        {/* Poruka sa linijom ispod */}
                         <Text style={styles.alertMessage}>Pritiskom na OK, omogućava se opcija narudžbe, bez pomoći konobara</Text>
                         <View style={styles.divider} />
-                        {/* Dugme sa linijom ispod */}
                         <TouchableOpacity
                             style={styles.alertButton}
                             onPress={() => setModalVisible(false)}
@@ -194,11 +187,8 @@ const RestaurantProfile = () => {
                     </View>
                 ))}
             </View>
-
-            {/* Conditional Rendering of Content Based on Active Tab */}
             {activeTab === 0 ? (
                 <>
-                    {/* Categories */}
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryScroll}>
                         {categories.map((category) => (
                             <TouchableOpacity
@@ -217,10 +207,7 @@ const RestaurantProfile = () => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
-
-                    {/* Main ScrollView for items */}
                     <ScrollView ref={scrollViewRef}>
-                        {/* Sections */}
                         {categories.map((category) => (
                             <View key={category.id}>
                                 <Text style={{ color: 'white', fontSize: 18, fontWeight: '600', marginTop: 18 }}>
@@ -268,7 +255,6 @@ const RestaurantProfile = () => {
                 </View>
             ) : activeTab === 2 ? (
                 <View style={styles.tabContent1}>
-                    {/* Review Section */}
                     <View style={styles.ratingSection}>
                         <View style={styles.ratingInfo}>
                             <Text style={styles.ratingText}>4.5</Text>
@@ -288,8 +274,6 @@ const RestaurantProfile = () => {
 
                     </View>
                     <Text style={styles.totalRatingsText}>247 ocjena</Text>
-
-                    {/* Review Input Section */}
                     <Text style={styles.reviewTitle}>Ocijenite</Text>
                     <View style={styles.ratingInputContainer}>
                         <Image source={require('../../assets/profile.png')} style={styles.profileImage2} />

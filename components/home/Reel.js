@@ -3,11 +3,8 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-const Post = ({ post, isFullScreen = false }) => {
+const Reel = ({ post, isFullScreen = false }) => {
   const navigation = useNavigation()
-  const handlePress = () => {
-    navigation.navigate('ReelsScreen')
-  }
 
   const containerStyle = isFullScreen
     ? [styles.container, { height: '100%' }]
@@ -20,13 +17,13 @@ const Post = ({ post, isFullScreen = false }) => {
       activeOpacity={0.8}
       disabled={isFullScreen}
     >
-      <PostImage post={post} />
+      <ReelImage post={post} />
       <OverlayContent post={post} />
     </TouchableOpacity>
   )
 }
 
-const PostImage = ({ post }) => (
+const ReelImage = ({ post }) => (
   <View style={styles.imageContainer}>
     <Image source={{ uri: post.imageUrl }} style={styles.image} />
   </View>
@@ -140,7 +137,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: 700, 
+    height: 1000, 
   },
   image: {
     height: '100%',
@@ -258,4 +255,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Post
+export default Reel
