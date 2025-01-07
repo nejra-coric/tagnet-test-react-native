@@ -1,5 +1,6 @@
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
 export const bottomTabIcons = [
   {
@@ -31,37 +32,33 @@ export const bottomTabIcons = [
 
 const BottomTabs = ({ icons }) => {
   const [activeTab, setActiveTab] = useState('Home');
+  const navigation = useNavigation();
 
   const Icon = ({ icon }) => (
     <TouchableOpacity
       onPress={() => {
         setActiveTab(icon.name);
         if (icon.name === 'Profile') {
-          navigation.navigate('ProfileScreen'); 
+          navigation.navigate('ProfileScreen', { isActive: true });  
         } else if (icon.name === 'Home') {
-          navigation.navigate('HomeScreen'); 
+          navigation.navigate('HomeScreen');
         }
       }}
     >
       <Image
         source={activeTab === icon.name ? icon.active : icon.inactive}
-        style={[
-          styles.icon,
-          icon.name === 'Profile' ? styles.profilePic() : null,
-          activeTab === 'Profile' && icon.name === activeTab
-            ? styles.profilePic(activeTab)
-            : null,
-        ]}
+        style={[styles.icon, icon.name === 'Profile' ? styles.profilePic() : null]}
       />
     </TouchableOpacity>
   );
+  
 
   return (
-      <View style={styles.container}>
-        {icons.map((icon, index) => (
-          <Icon key={index} icon={icon} />
-        ))}
-      </View>
+    <View style={styles.container}>
+      {icons.map((icon, index) => (
+        <Icon key={index} icon={icon} />
+      ))}
+    </View>
   );
 };
 
@@ -78,7 +75,7 @@ const styles = StyleSheet.create({
   },
   profilePic: (activeTab = '') => ({
     borderRadius: 50,
-    borderWidth:  activeTab === 'Profile' ? 2: 0,
+    borderWidth: activeTab === 'Profile' ? 2 : 0,
     borderColor: '#fff',
   }),
 });

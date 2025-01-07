@@ -1,102 +1,107 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const Post = ({ post }) => {
-  return (
-    <View style={styles.container}>
-      <PostImage post={post} />
-      <OverlayContent post={post} />
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            <PostImage post={post} />
+            <OverlayContent post={post} />
+        </View>
+    );
 };
 
 const PostImage = ({ post }) => (
-  <View style={styles.imageContainer}>
-    <Image source={{ uri: post.imageUrl }} style={styles.image} />
-  </View>
-);
-
-const OverlayContent = ({ post }) => (
-  <>
-    <TouchableOpacity style={styles.actionButton}>
-      <View style={styles.actionButtonContent}>
-        <Text style={styles.actionButtonText}>Ponovi čitavu narudžbu</Text>
-        <Image
-          source={require('../../assets/arrow.png')}
-          style={styles.arrowIcon}
-        />
-      </View>
-    </TouchableOpacity>
-
-
-    <View style={styles.overlayContent}>
-      <View style={styles.userInfo}>
-        <View style={styles.profileContainer}>
-          <Image
-            source={require('../../assets/profile.png')}
-            style={styles.profileImage}
-          />
-          <Image
-            source={require('../../assets/profile.png')}
-            style={[styles.profileImage, styles.secondaryProfileImage]}
-          />
-        </View>
-        <Text style={styles.userText}>
-          <Text style={styles.boldText}>nejracoric</Text> &{' '}
-          <Text style={styles.boldText}>Metropolis</Text>
-        </Text>
-        <TouchableOpacity>
-          <Text style={styles.followButton}>Prati</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.hashtags}>
-        #aquarium #aquariumplants #instagram #reels...
-      </Text>
-      <View style={styles.likesSection}>
-        <View style={styles.likesProfileContainer}>
-          <Image
-            source={require('../../assets/profile.png')}
-            style={styles.likesProfileImage}
-          />
-        </View>
-        <Text style={styles.likes}>
-          <Text style={styles.boldText}>nejracoric</Text> i 3,879 ostalih su
-          probali ovu narudžbu
-        </Text>
-      </View>
-
-      <View style={styles.iconContainer}>
-        <TouchableOpacity>
-          <IconWithText icon={require('../../assets/heart.png')} text="172" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <IconWithText icon={require('../../assets/comment.png')} text="172" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <IconWithText icon={require('../../assets/inbox.png')} text="172" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <IconWithText icon={require('../../assets/bookmark.png')} text="172" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <IconWithText icon={require('../../assets/menu.png')} text="" />
-        </TouchableOpacity>
-
-      </View>
+    <View style={styles.imageContainer}>
+        <Image source={{ uri: post.imageUrl }} style={styles.image} />
     </View>
-  </>
 );
+
+const OverlayContent = ({ post }) => {
+    const navigation = useNavigation();
+
+    return (
+        <>
+            <TouchableOpacity style={styles.actionButton}>
+                <View style={styles.actionButtonContent}>
+                    <Text style={styles.actionButtonText}>Ponovi čitavu narudžbu</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.arrowIcon}
+                    />
+                </View>
+            </TouchableOpacity>
+
+            <View style={styles.overlayContent}>
+                <View style={styles.userInfo}>
+                    <View style={styles.profileContainer}>
+                        <Image
+                            source={require('../../assets/profile.png')}
+                            style={styles.profileImage}
+                        />
+                        <Image
+                            source={require('../../assets/profile.png')}
+                            style={[styles.profileImage, styles.secondaryProfileImage]}
+                        />
+                    </View>
+                    <Text style={styles.userText}>
+                        <Text style={styles.boldText}>nejracoric</Text> &{' '}
+                        <TouchableOpacity onPress={() => navigation.navigate('RestaurantProfileScreen')}>
+                            <Text style={[styles.boldText, styles.linkText]}>Metropolis</Text>
+                        </TouchableOpacity>
+                    </Text>
+                    <TouchableOpacity>
+                        <Text style={styles.followButton}>Prati</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <Text style={styles.hashtags}>
+                    #aquarium #aquariumplants #instagram #reels...
+                </Text>
+                <View style={styles.likesSection}>
+                    <View style={styles.likesProfileContainer}>
+                        <Image
+                            source={require('../../assets/profile.png')}
+                            style={styles.likesProfileImage}
+                        />
+                    </View>
+                    <Text style={styles.likes}>
+                        <Text style={styles.boldText}>nejracoric</Text> i 3,879 ostalih su
+                        probali ovu narudžbu
+                    </Text>
+                </View>
+
+                <View style={styles.iconContainer}>
+                    <TouchableOpacity>
+                        <IconWithText icon={require('../../assets/heart.png')} text="172" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <IconWithText icon={require('../../assets/comment.png')} text="172" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <IconWithText icon={require('../../assets/inbox.png')} text="172" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <IconWithText icon={require('../../assets/bookmark.png')} text="172" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <IconWithText icon={require('../../assets/menu.png')} text="" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </>
+    );
+};
 
 const IconWithText = ({ icon, text }) => (
-  <View style={styles.iconWithText}>
-    <Image source={icon} style={styles.icon} />
-    {text !== '' && <Text style={styles.iconText}>{text}</Text>}
-  </View>
+    <View style={styles.iconWithText}>
+        <Image source={icon} style={styles.icon} />
+        {text !== '' && <Text style={styles.iconText}>{text}</Text>}
+    </View>
 );
 
 const styles = StyleSheet.create({
@@ -104,6 +109,12 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginBottom: 20,
   },
+
+  linkText: {
+    color: '#fff', 
+    textDecorationLine: 'none',
+},
+
   imageContainer: {
     width: '100%',
     height: 700,

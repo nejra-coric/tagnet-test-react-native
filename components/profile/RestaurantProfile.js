@@ -1,11 +1,18 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
 
 const RestaurantProfile = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState(0);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const scrollViewRef = useRef();
+
+    const [isFollowing, setIsFollowing] = useState(false);
+
+    const handlePress = () => {
+        setIsFollowing(!isFollowing);
+    };
 
     const tabs = [
         { id: 0, icon: require('../../assets/coffe.png') },
@@ -71,9 +78,22 @@ const RestaurantProfile = () => {
 
             {/* Buttons */}
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.buttonFollow}>
-                    <Text style={styles.buttonText}>Prati</Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+                style={[
+                    styles.buttonFollow,
+                    isFollowing && styles.buttonFollowing, // Dodaj sivu boju ako prati
+                ]}
+                onPress={handlePress}
+            >
+                <Text
+                    style={[
+                        styles.buttonText,
+                        isFollowing && styles.buttonTextFollowing, // Dodaj siv tekst ako prati
+                    ]}
+                >
+                    {isFollowing ? 'Pratim' : 'Prati'}
+                </Text>
+            </TouchableOpacity>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Poruka</Text>
                 </TouchableOpacity>
@@ -82,9 +102,48 @@ const RestaurantProfile = () => {
                 <Text style={styles.buttonText}>Rezervisi</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonOrder}>
+            <TouchableOpacity
+                style={styles.buttonOrder}
+                onPress={() => setModalVisible(true)}
+            >
                 <Text style={styles.buttonText}>Narudžba za stol broj 12</Text>
             </TouchableOpacity>
+
+            <Modal
+                transparent={true}
+                visible={modalVisible}
+                animationType="fade"
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.alertBox}>
+                        {/* Ikona */}
+                        <Image
+                            source={require('../../assets/complete.png')}
+                            style={styles.alertIcon}
+                        />
+                        {/* Boldirani naslov */}
+                        <Text style={styles.alertTitle}>Prijava na stol 12?</Text>
+                        {/* Poruka sa linijom ispod */}
+                        <Text style={styles.alertMessage}>Pritiskom na OK, omogućava se opcija narudžbe, bez pomoći konobara</Text>
+                        <View style={styles.divider} />
+                        {/* Dugme sa linijom ispod */}
+                        <TouchableOpacity
+                            style={styles.alertButton}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.alertButtonText}>OK</Text>
+                        </TouchableOpacity>
+                        <View style={styles.divider} />
+                        <TouchableOpacity
+                            style={[styles.alertButton, styles.alertButtonPrimary]}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={[styles.alertButtonText2, styles.alertButtonPrimaryText]}>Nastavi razgledat</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
 
             {/* Tabs */}
             <View style={styles.tabsContainer}>
@@ -295,6 +354,76 @@ const RestaurantProfile = () => {
 };
 
 const styles = StyleSheet.create({
+    container1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f8f8f8',
+    },
+    buttonOrder: {
+        backgroundColor: '#007AFF',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    alertBox: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        width: '80%',
+        padding: 20,
+        alignItems: 'center',
+    },
+    alertIcon: {
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+    },
+    alertTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    alertMessage: {
+        fontSize: 14,
+        color: '#333',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#e0e0e0',
+        alignSelf: 'stretch',
+        marginVertical: 10,
+    },
+    alertButton: {
+        paddingVertical: 12,
+        alignItems: 'center',
+        width: '100%',
+    },
+    alertButtonText: {
+        fontSize: 16,
+        color: '#0195F5', 
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    alertButtonText2: {
+        fontSize: 16,
+        color: '#030303', 
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
     container: {
         padding: 16,
         backgroundColor: '#000',
@@ -362,6 +491,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 60,
         borderRadius: 5,
+    },
+
+    buttonFollowing: {
+        backgroundColor: '#d3d3d3', 
+    },
+
+    buttonTextFollowing: {
+        color: '#606060', 
     },
 
     buttonReserve: {
