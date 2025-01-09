@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import { useNavigation } from '@react-navigation/native';
 
 export const bottomTabIcons = [
   {

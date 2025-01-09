@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
   },
   leftSection: {
     flexDirection: 'row',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#030303',
   },
   verifiedIcon: {
     width: 16,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    tintColor: '#fff', // Black icons
+    tintColor: '#030303', // Black icons
   },
 });
 

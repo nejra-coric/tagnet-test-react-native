@@ -109,13 +109,23 @@ const Profile = () => {
                 onPress={() => handleCategorySelect(category.id)}
               >
                 <View style={styles.categoryContent}>
-                  <Image source={require('../../assets/audio.png')} style={styles.categoryIcon} />
+                  <Image
+                    source={require('../../assets/audio.png')}
+                    style={[
+                      styles.categoryIcon,
+                      selectedCategory === category.id && styles.activeCategoryIcon // Active style
+                    ]}
+                  />
                   <Text
-                    style={[styles.categoryText, selectedCategory === category.id && styles.activeCategoryText]}
+                    style={[
+                      styles.categoryText,
+                      selectedCategory === category.id && styles.activeCategoryText
+                    ]}
                   >
                     {category.label}
                   </Text>
                 </View>
+
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -125,7 +135,7 @@ const Profile = () => {
             {/* Sections */}
             {categories.map((category) => (
               <View key={category.id}>
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '600', marginTop: 18 }}>
+                <Text style={{ color: 'black', fontSize: 18, fontWeight: '600', marginTop: 18 }}>
                   {category.label}
                 </Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.itemsContainer}>
@@ -290,7 +300,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
     flex: 1,
   },
   profileHeader: {
@@ -314,29 +324,29 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#030303',
   },
   statLabel: {
     fontSize: 14,
-    color: '#ccc',
+    color: '#030303',
   },
   profileDescription: {
     marginTop: 16,
     borderTopWidth: 1,
-    borderTopColor: '#444',
+    borderTopColor: '#030303',
     paddingTop: 16,
   },
   profileName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#030303',
   },
   bio: {
     fontSize: 14,
-    color: '#ccc',
+    color: '#030303',
   },
   link: {
-    color: '#007BFF',
+    color: '#1A4266',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -344,14 +354,14 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   button: {
-    backgroundColor: '#444',
+    backgroundColor: '#EFEFEF',
     paddingVertical: 10,
     paddingHorizontal: 40,
     borderRadius: 5,
   },
   buttonText: {
     fontSize: 14,
-    color: '#fff',
+    color: '#030303',
   },
 
   categoryScroll: {
@@ -366,7 +376,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
-    backgroundColor: '#444',
+    backgroundColor: '#EFEFEF',
     marginRight: 16,
   },
 
@@ -378,18 +388,25 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 8,
-    tintColor: '#ccc',
+    tintColor: '#030303',
   },
   categoryText: {
     fontSize: 14,
-    color: '#fff',
+    color: '#030303',
   },
   activeCategory: {
-    backgroundColor: '#007BFF',
+    backgroundColor: 'rgba(1, 149, 245, 0.2)',
   },
   activeCategoryText: {
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#0195F5',
+  },
+
+  activeCategoryIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+    tintColor: '#0195F5',
   },
 
   tabsContainer: {
@@ -409,16 +426,16 @@ const styles = StyleSheet.create({
   tabIcon: {
     width: 24,
     height: 24,
-    tintColor: '#ccc',
+    tintColor: '#1E1E1E',
   },
   activeIcon: {
-    tintColor: '#fff',
+    tintColor: '#1E1E1E',
   },
   activeUnderline: {
     margin: 4,
     width: 80,
     height: 2,
-    backgroundColor: '#fff',
+    backgroundColor: '#1E1E1E',
     borderRadius: 1,
   },
 
@@ -528,7 +545,7 @@ const styles = StyleSheet.create({
 
   ratingText: {
     fontSize: 32,
-    color: '#fff',
+    color: '#1E1E1E',
     fontWeight: 'bold',
     marginRight: 8,
   },
@@ -542,7 +559,7 @@ const styles = StyleSheet.create({
 
   totalRatingsText: {
     fontSize: 14,
-    color: '#ccc',
+    color: '#1E1E1E',
   },
 
   progressBars: {
@@ -557,7 +574,7 @@ const styles = StyleSheet.create({
 
   ratingLabel: {
     fontSize: 14,
-    color: '#fff',
+    color: '#1E1E1E',
     width: 30,
   },
 
@@ -609,7 +626,7 @@ const styles = StyleSheet.create({
 
   infoTabContent: {
     padding: 16,
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
   },
 
   infoSection: {
@@ -649,12 +666,12 @@ const styles = StyleSheet.create({
 
   infoLabel: {
     fontSize: 16,
-    color: '#fff',
+    color: '#1E1E1E',
   },
 
   infoValue: {
     fontSize: 14,
-    color: '#ccc',
+    color: '#1E1E1E',
     marginTop: 4,
   },
 
@@ -671,7 +688,7 @@ const styles = StyleSheet.create({
   paymentTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#1E1E1E',
     marginBottom: 8,
   },
 
@@ -690,7 +707,7 @@ const styles = StyleSheet.create({
 
   paymentMethodText: {
     fontSize: 14,
-    color: '#fff',
+    color: '#1E1E1E',
   },
 
   timeTextClosed: {
@@ -701,7 +718,7 @@ const styles = StyleSheet.create({
 
   infoValue: {
     fontSize: 14,
-    color: '#ccc',
+    color: '#1E1E1E',
     marginTop: 4,
   },
 
