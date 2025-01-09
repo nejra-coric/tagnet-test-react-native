@@ -316,15 +316,21 @@ const RestaurantProfile = () => {
                                     ))}
                                 </View>
                                 <View style={styles.iconContainer}>
-                                    <TouchableOpacity>
-                                        <Image source={require('../../assets/heart.png')} style={styles.icon} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity>
-                                        <Image source={require('../../assets/comment.png')} style={styles.icon} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity>
-                                        <Image source={require('../../assets/inbox.png')} style={styles.icon} />
-                                    </TouchableOpacity>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 16 }}>
+                                            <Image source={require('../../assets/heart_black.png')} style={styles.icon} />
+                                            <Text style={styles.iconText}>197</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 16 }}>
+                                            <Image source={require('../../assets/comment_black.png')} style={styles.icon} />
+                                            <Text style={styles.iconText}>126</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Image source={require('../../assets/inbox_black.png')} style={styles.icon} />
+                                            <Text style={styles.iconText}>130</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
                                 </View>
 
                                 <View style={styles.likesSection}>
@@ -555,7 +561,7 @@ const RestaurantProfile = () => {
                         <ScrollView ref={scrollViewRef}>
                             {categories.map((category) => (
                                 <View key={category.id}>
-                                    <Text style={{ color: 'black', fontSize: 18, fontWeight: '600' }}>
+                                    <Text style={{ color: 'black', fontSize: 18, fontWeight: '600', marginTop: 18 }}>
                                         {category.label}
                                     </Text>
                                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.itemsContainer}>
@@ -887,7 +893,6 @@ const styles = StyleSheet.create({
     categoryScroll: {
         marginTop: 16,
         paddingHorizontal: 8,
-        height: '20%',
     },
 
     categoryButton: {
@@ -1182,8 +1187,15 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         marginRight: 8,
-        tintColor: '#0195F5',
+        tintColor: '#030303',
     },
+
+    iconText: {
+        fontSize: 14,
+        color: '#000', // ili boja koju preferiraš
+        marginLeft: 8, // Dodaje razmak između ikone i teksta
+    },
+    
 
     infoLabel: {
         fontSize: 16,

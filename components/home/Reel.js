@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     position: 'absolute',
-    top: 530,
+    top: 650,
     left: 20,
     backgroundColor: '#0195F5',
     paddingVertical: 10,

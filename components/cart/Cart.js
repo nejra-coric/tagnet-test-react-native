@@ -1,11 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Modal, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Modal, ScrollView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
 
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
     const [bottomSheetVisible2, setBottomSheetVisible2] = useState(false);
+    const [bottomSheetVisible3, setBottomSheetVisible3] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
 
     const items = [
         { id: '1', name: 'Rižoto sa tunom', price: 22, discount: 33, image: 'https://www.secretosdelsur.com/wp-content/uploads/2023/06/Risottomet-tomaat-en-champignons-7.jpg' },
@@ -93,7 +96,10 @@ const Cart = () => {
                                 {item.price - (item.price * item.discount) / 100} KM
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.deleteIconContainer}>
+                        <TouchableOpacity style={styles.deleteIconContainer}
+                        onPress={() => {
+                            setModalVisible(true);
+                        }}>
                             <Image source={require('../../assets/delete.png')} style={styles.deleteIcon} />
                         </TouchableOpacity>
 
@@ -325,8 +331,8 @@ const Cart = () => {
                             <TouchableOpacity style={styles.submitButton}
                                 onPress={() => {
                                     setBottomSheetVisible(false);
-                                    setBottomSheetVisible2(true);
-                                    // setModalVisible2(true);
+                                    setBottomSheetVisible2(false);
+                                    setBottomSheetVisible3(true);
                                 }}>
                                 <Text style={styles.submitButtonText}>Dodaj novu karticu</Text>
                             </TouchableOpacity>
@@ -335,6 +341,151 @@ const Cart = () => {
                 </View>
             </Modal>
 
+            <Modal
+                transparent
+                visible={bottomSheetVisible3}
+                animationType="slide"
+                onRequestClose={() => setBottomSheetVisible3(false)}
+            >
+                <View style={styles.bottomSheetOverlay}>
+                    <TouchableOpacity
+                        style={styles.bottomSheetBackgroundTouchable}
+                        onPress={() => setBottomSheetVisible3(false)}
+                    />
+                    <View style={styles.bottomSheetContainer}>
+                        <View style={styles.topDivider} />
+
+                        <ScrollView
+                            contentContainerStyle={styles.scrollContent}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View style={styles.header}>
+                                <Text style={styles.headerText}>Dodavanje nove kartice</Text>
+                            </View>
+
+                            {/* Input polje za ime na kartici */}
+                            <TextInput
+                                style={styles.inputField}
+                                placeholder="Ime na kartici"
+                                placeholderTextColor="#B0B0B0"
+                            />
+
+                            {/* Input polje za broj kartice sa ikonom */}
+                            <View style={styles.cardNumberContainer}>
+                                <Image
+                                    source={require('../../assets/card.png')}
+                                    style={styles.cardIcon}
+                                />
+                                <TextInput
+                                    style={styles.cardNumberInput}
+                                    placeholder="Broj kartice"
+                                    placeholderTextColor="#B0B0B0"
+                                    keyboardType="numeric"
+                                />
+                            </View>
+
+                            {/* Polja za datum isteka i CVV u jednom redu */}
+                            <View style={styles.expiryCvvContainer}>
+                                <TextInput
+                                    style={styles.expiryInput}
+                                    placeholder="MM/YY"
+                                    placeholderTextColor="#B0B0B0"
+                                    keyboardType="numeric"
+                                />
+                                <TextInput
+                                    style={styles.cvvInput}
+                                    placeholder="CVV"
+                                    placeholderTextColor="#B0B0B0"
+                                    secureTextEntry
+                                    keyboardType="numeric"
+                                />
+                            </View>
+
+                            <TouchableOpacity
+                                style={styles.submitButtonCard}
+                                onPress={() => {
+                                    setBottomSheetVisible(false);
+                                    setBottomSheetVisible2(false);
+                                    setBottomSheetVisible3(false);
+                                }}
+                            >
+                                <Text style={styles.submitButtonCardText}>Završi dodavanje</Text>
+                            </TouchableOpacity>
+                        </ScrollView>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent={true}
+                visible={modalVisible}
+                animationType="fade"
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.alertBox}>
+                        <Text style={styles.alertTitle}>Obrisati artikal iz korpe?</Text>
+                        <Text style={styles.alertMessage}>Ova akcija će izbrisati odabrani 
+                        artikal sa liste spremne za narudžbu</Text>
+                        <View style={styles.divider} />
+                        <TouchableOpacity
+                            style={[styles.alertButton, styles.alertButtonRed]}
+                            onPress={() => {
+                                setModalVisible(false);
+                                setModalVisible2(true);
+                            }}
+                        >
+                            <Text style={styles.alertButtonTextRed}>Obriši</Text>
+                        </TouchableOpacity>
+                        <View style={styles.divider} />
+                        <TouchableOpacity
+                            style={styles.alertButton}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.alertButtonText}>Vrati se na korpu</Text>
+                        </TouchableOpacity>
+                        <View style={styles.divider} />
+                        <TouchableOpacity
+                            style={[styles.alertButton, styles.alertButtonPrimary]}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={[styles.alertButtonText2, styles.alertButtonPrimaryText]}>Obriši iz korpe i dodaj u spremljeno</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent={true}
+                visible={modalVisible2}
+                animationType="fade"
+                onRequestClose={() => setModalVisible2(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.alertBox}>
+                        <Image
+                            source={require('../../assets/complete.png')}
+                            style={styles.alertIcon}
+                        />
+                        <Text style={styles.alertTitle}>Uspješno obrisano iz korpe!</Text>
+                        <Text style={styles.alertMessage}>Odabrani artikal je obrisan iz korpe </Text>
+                        <View style={styles.divider} />
+                        <TouchableOpacity
+                            style={styles.alertButton}
+                            onPress={() => setModalVisible2(false)}
+                        >
+                            <Text style={styles.alertButtonText}>OK</Text>
+                        </TouchableOpacity>
+                        <View style={styles.divider} />
+                        <TouchableOpacity
+                            style={[styles.alertButton, styles.alertButtonPrimary]}
+                            onPress={() => setModalVisible2(false)}
+                        >
+                            <Text style={[styles.alertButtonText2, styles.alertButtonPrimaryText]}>Vrati artikal u korpu</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
 
         </View>
     );
@@ -786,6 +937,129 @@ const styles = StyleSheet.create({
     iconText: {
         fontSize: 16,
         color: '#333',
+        fontWeight: 'bold'
+    },
+
+    inputField: {
+        borderWidth: 1,
+        borderColor: '#CCC',
+        borderRadius: 8,
+        padding: 12,
+        marginTop: 16,
+        fontSize: 16,
+        color: '#333',
+    },
+    cardNumberContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC',
+        borderRadius: 8,
+        padding: 12,
+        marginTop: 16,
+    },
+    cardIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 8,
+    },
+    cardNumberInput: {
+        flex: 1,
+        fontSize: 16,
+        color: '#333',
+    },
+    expiryCvvContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 16,
+    },
+    expiryInput: {
+        borderWidth: 1,
+        borderColor: '#CCC',
+        borderRadius: 8,
+        padding: 12,
+        fontSize: 16,
+        color: '#333',
+        flex: 1,
+        marginRight: 8,
+    },
+    cvvInput: {
+        borderWidth: 1,
+        borderColor: '#CCC',
+        borderRadius: 8,
+        padding: 12,
+        fontSize: 16,
+        color: '#333',
+        flex: 1,
+    },
+    submitButtonCard: {
+        backgroundColor: '#007BFF',
+        borderRadius: 8,
+        padding: 16,
+        marginTop: 24,
+        alignItems: 'center',
+    },
+    submitButtonCardText: {
+        color: '#FFF',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    },
+    alertBox: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        width: '80%',
+        padding: 20,
+        alignItems: 'center',
+    },
+    alertIcon: {
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+    },
+    alertTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    alertMessage: {
+        fontSize: 14,
+        color: '#333',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    alertButton: {
+        paddingVertical: 12,
+        alignItems: 'center',
+        width: '100%',
+    },
+    alertButtonRed: {
+        paddingVertical: 12,
+        alignItems: 'center',
+        width: '100%',
+    },
+    alertButtonText: {
+        fontSize: 16,
+        color: '#0195F5',
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    alertButtonTextRed: {
+        fontSize: 16,
+        color: '#E92440',
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    alertButtonText2: {
+        fontSize: 16,
+        color: '#030303',
+        textAlign: 'center',
         fontWeight: 'bold'
     },
 });
