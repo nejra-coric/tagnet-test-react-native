@@ -1,19 +1,21 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, FlatList } from 'react-native'
 import Header from '../components/home/Header'
-import Stories from '../components/home/Stories'
+
 import Post from '../components/home/Post'
 import { posts } from '../data/posts'
-import BottomTabs, { bottomTabIcons } from '../components/home/BottomTabs'
+
+const { height: screenHeight } = Dimensions.get('window');
+import { Dimensions } from 'react-native';
 
 const HomeScreen = () => {
   // Suppose each post (including spacing) is ~720 px tall
-  const ITEM_HEIGHT = 520
+  const ITEM_HEIGHT = screenHeight
 
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <Stories />
+      
 
       <FlatList
         data={posts}
@@ -27,7 +29,6 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
       />
 
-      <BottomTabs icons={bottomTabIcons} />
     </SafeAreaView>
   )
 }

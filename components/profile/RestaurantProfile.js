@@ -212,7 +212,7 @@ const RestaurantProfile = () => {
                                 {/* Time Selection */}
                                 <View style={styles.section}>
                                     <Text style={styles.sectionTitle}>Izaberi sat</Text>
-                                    <View style={styles.timeContainer}>
+                                    <View style={styles.timeContainer2}>
                                         {[
                                             "10:00", "10:30",
                                             "11:00", "11:30",
@@ -271,7 +271,7 @@ const RestaurantProfile = () => {
                             style={styles.backgroundTouchable}
                             onPress={() => setBottomSheetVisible2(false)}
                         />
-                        <View style={styles.bottomSheetContainer}>
+                        <View style={styles.bottomSheetContainer2}>
                             <View style={styles.topDivider} />
 
                             {/* Header Section */}
@@ -291,7 +291,7 @@ const RestaurantProfile = () => {
 
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 {/* Image Section */}
-                                <View style={styles.imageContainer}>
+                                <View style={styles.imageContainer2}>
                                     <Image
                                         source={require('../../assets/risotto.jpg')} // Replace with your image path
                                         style={styles.productImage}
@@ -586,32 +586,46 @@ const RestaurantProfile = () => {
                     </>
                 ) : activeTab === 1 ? (
                     <View style={styles.tabContent}>
-                        <ScrollView contentContainerStyle={styles.imageRowContainer}>
-                            {[...Array(9)].map((_, index) => (
-                                <View key={index} style={styles.imageContainer}>
-                                    <Image
-                                        source={require('../../assets/slika3.jpg')}
-                                        style={styles.image}
-                                    />
-                                    <View style={styles.likesContainer}>
-                                        <TouchableOpacity style={styles.likeButton}>
-                                            <Image
-                                                source={require('../../assets/heart.png')}
-                                                style={styles.likeIcon}
-                                            />
-                                        </TouchableOpacity>
-                                        <Text style={styles.likeCount}>125</Text>
+                        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                            {
+                                [...Array(9)].reduce((rows, _, index) => {
+                                    if (index % 3 === 0) rows.push([]); // Start a new row every 3 items
+                                    rows[rows.length - 1].push(index); // Add the current item to the last row
+                                    return rows;
+                                }, []).map((row, rowIndex) => (
+                                    <View key={rowIndex} style={styles.row}>
+                                        {row.map((index) => (
+                                            <View key={index} style={styles.imageContainer}>
+                                                <Image
+                                                    source={require('../../assets/slika3.jpg')}
+                                                    style={styles.image}
+                                                />
+                                                <View style={styles.likesContainer}>
+                                                    <TouchableOpacity style={styles.likeButton}>
+                                                        <Image
+                                                            source={require('../../assets/heart.png')}
+                                                            style={styles.likeIcon}
+                                                        />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.likeCount}>125</Text>
+                                                </View>
+                                            </View>
+                                        ))}
                                     </View>
-                                </View>
-                            ))}
+                                ))
+                            }
                         </ScrollView>
                     </View>
                 ) : activeTab === 2 ? (
                     <View style={styles.tabContent1}>
                         <View style={styles.ratingSection}>
-                            <View style={styles.ratingInfo}>
-                                <Text style={styles.ratingText}>4.5</Text>
-                                <Image source={require('../../assets/star_filled.png')} style={styles.mainStarIcon} />
+
+                            <View>
+                                <View style={styles.ratingInfo}>
+                                    <Text style={styles.ratingText}>4.5</Text>
+                                    <Image source={require('../../assets/star_filled.png')} style={styles.mainStarIcon} />
+                                </View>
+                                <Text style={styles.totalRatingsText}>247 ocjena</Text>
                             </View>
 
                             <View style={styles.progressBars}>
@@ -626,7 +640,7 @@ const RestaurantProfile = () => {
                             </View>
 
                         </View>
-                        <Text style={styles.totalRatingsText}>247 ocjena</Text>
+
                         <Text style={styles.reviewTitle}>Ocijenite</Text>
                         <View style={styles.ratingInputContainer}>
                             <Image source={require('../../assets/profile.png')} style={styles.profileImage2} />
@@ -749,7 +763,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         width: '80%',
-        padding: 20,
+        paddingTop: 18,
+        paddingBottom: 10,
         alignItems: 'center',
     },
     alertIcon: {
@@ -1014,7 +1029,14 @@ const styles = StyleSheet.create({
 
     tabContent: {
         flex: 1,
+        backgroundColor: 'black',
         marginTop: 16,
+    },
+
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 2,
     },
 
     imageRowContainer: {
@@ -1025,12 +1047,13 @@ const styles = StyleSheet.create({
 
     imageContainer: {
         width: '30%',
-        position: 'relative',
+        alignItems: 'center', // Center content within each item
     },
 
     image: {
-        width: 130,
-        height: 225,
+        width: '30%',
+        aspectRatio: 0.47,
+        height: 250,
     },
 
     likesContainer: {
@@ -1062,6 +1085,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 16,
+        alignItems: 'center'
     },
 
     ratingInfo: {
@@ -1085,7 +1109,7 @@ const styles = StyleSheet.create({
 
     totalRatingsText: {
         fontSize: 14,
-        color: '#030303',
+        color: 'rgba(0, 0, 0, 0.38)',
     },
 
     progressBars: {
@@ -1195,11 +1219,12 @@ const styles = StyleSheet.create({
         color: '#000', // ili boja koju preferiraš
         marginLeft: 8, // Dodaje razmak između ikone i teksta
     },
-    
+
 
     infoLabel: {
         fontSize: 16,
         color: '#000',
+        marginStart: 12,
     },
 
     infoValue: {
@@ -1247,6 +1272,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#FF0000',
         marginTop: 4,
+        marginStart: 12,
     },
 
     infoValue: {
@@ -1321,11 +1347,7 @@ const styles = StyleSheet.create({
     selectedOptionText: {
         color: '#fff', // Highlighted text color for selected button
     },
-    divider: {
-        height: 1,
-        backgroundColor: '#E0E0E0',
-        marginTop: 15,
-    },
+
     timeOptionsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -1378,6 +1400,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 20,
     },
+    bottomSheetContainer2: {
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        paddingBottom: 20,
+    },
     topDivider: {
         width: 40,
         height: 5,
@@ -1397,11 +1425,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         left: 80,
-    },
-    divider: {
-        height: 1,
-        backgroundColor: '#E0E0E0',
-        marginVertical: 10,
     },
 
     horizontalScrollContainer: {
@@ -1443,7 +1466,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
     },
-    timeContainer: {
+    timeContainer2: {
         flexDirection: 'row',
         flexWrap: 'wrap', // Omogućava prelamanje u novi red
         gap: 10, // Razmak između dugmadi
@@ -1531,7 +1554,7 @@ const styles = StyleSheet.create({
     },
     productImage: {
         width: '100%',
-        height: 200,
+        height: 300,
         resizeMode: 'cover',
     },
     discountContainer: {
@@ -1627,13 +1650,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    imageContainer: {
+    imageContainer2: {
         position: 'relative',
-    },
-    productImage: {
-        width: '100%',
-        height: 300,
-        resizeMode: 'cover',
     },
     discountBadge: {
         position: 'absolute',
@@ -1720,6 +1738,7 @@ const styles = StyleSheet.create({
     likes: {
         color: '#000',
         fontSize: 12,
+        marginHorizontal: 20,
     },
 
     boldText: {
@@ -1729,10 +1748,12 @@ const styles = StyleSheet.create({
     likesSection: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 15,
+        marginHorizontal: 20,
+        marginTop: 9,
+        marginBottom: 7,
     },
     likesProfileContainer: {
-        marginRight: 8,
+        marginRight: 0.5,
     },
     likesProfileImage: {
         width: 21,

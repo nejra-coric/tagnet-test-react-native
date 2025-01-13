@@ -27,4 +27,16 @@ export const food = [
         item: 'Sprite',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLNJSAL3et84acjkCjApRkxSqIIyeift5RCQ&s'
     },
+    {
+        item: 'Cheesecake',
+        image: 'https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FSeries%2F2024-07-how-to-make-perfect-cheesecake%2Fhow-to-make-perfect-cheesecake-319'
+    },
+    {
+        item: 'Cokoladna torta',
+        image: 'https://recepti-api.index.hr/img/preview/large/recipe-mobile/f18e7f05-6e18-420a-976b-28928fb285f8/%C4%8Doko%20mala.jpg'
+    },
+    {
+        item: 'Sprite',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLNJSAL3et84acjkCjApRkxSqIIyeift5RCQ&s'
+    },
 ]

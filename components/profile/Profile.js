@@ -182,9 +182,12 @@ const Profile = () => {
         <View style={styles.tabContent1}>
           {/* Review Section */}
           <View style={styles.ratingSection}>
-            <View style={styles.ratingInfo}>
-              <Text style={styles.ratingText}>4.5</Text>
-              <Image source={require('../../assets/star_filled.png')} style={styles.mainStarIcon} />
+            <View>
+              <View style={styles.ratingInfo}>
+                <Text style={styles.ratingText}>4.5</Text>
+                <Image source={require('../../assets/star_filled.png')} style={styles.mainStarIcon} />
+              </View>
+              <Text style={styles.totalRatingsText}>247 ocjena</Text>
             </View>
 
             <View style={styles.progressBars}>
@@ -199,7 +202,7 @@ const Profile = () => {
             </View>
 
           </View>
-          <Text style={styles.totalRatingsText}>247 ocjena</Text>
+
 
           {/* Review Input Section */}
           <Text style={styles.reviewTitle}>Ocijenite</Text>
@@ -531,17 +534,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-
   ratingSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
-  },
+    alignItems: 'center'
+},
 
-  ratingInfo: {
+ratingInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
+},
 
   ratingText: {
     fontSize: 32,
@@ -559,7 +562,7 @@ const styles = StyleSheet.create({
 
   totalRatingsText: {
     fontSize: 14,
-    color: '#1E1E1E',
+    color: 'rgba(0, 0, 0, 0.38)',
   },
 
   progressBars: {
@@ -594,7 +597,7 @@ const styles = StyleSheet.create({
   reviewTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#000',
     marginBottom: 16,
   },
 

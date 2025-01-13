@@ -1,32 +1,37 @@
 // ReelsScreen.js
 import React from 'react'
-import { View, FlatList, StyleSheet, Dimensions } from 'react-native'
-import { posts } from '../data/posts'
-import Reel from '../components/home/Reel'
+import { View, FlatList, StyleSheet, Dimensions, SafeAreaView } from 'react-native'
+import { food } from '../data/food';
 
-const { width, height } = Dimensions.get('window')
+import Reel from '../components/home/Reel'
+import Header from '../components/home/Header'
+
+import Post from '../components/home/Post'
+
+
+const { height: screenHeight } = Dimensions.get('window');
 
 const ReelsScreen = () => {
+
+  const ITEM_HEIGHT = screenHeight
   return (
-    <View style={styles.container}>
+  <SafeAreaView style={styles.container}>
+      <Header />
+      
+
       <FlatList
-        data={posts}
+        data={food}
+        renderItem={({ item }) => <Reel post={item} />}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={{ width, height }}>
-            <Reel post={item} isFullScreen />
-          </View>
-        )}
-        pagingEnabled
-        horizontal={false}
+        snapToInterval={ITEM_HEIGHT}
+        snapToAlignment="start"
+        decelerationRate="fast"
+        // optional: if you want to remove the over-scroll bounce
+        bounces={false}
         showsVerticalScrollIndicator={false}
-        getItemLayout={(_, index) => ({
-          length: height,
-          offset: height * index,
-          index,
-        })}
       />
-    </View>
+
+    </SafeAreaView>
   )
 }
 

@@ -66,8 +66,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: 50,
+    height: 83,
     paddingTop: 10,
+    backgroundColor: 'black',
+    paddingBottom: 30
   },
   icon: {
     width: 27,

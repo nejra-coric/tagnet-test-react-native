@@ -1,26 +1,41 @@
-import { View, Text, ScrollView, Image, StyleSheet } from 'react-native'
-import React from 'react'
-import { food } from '../../data/food'
+import React from 'react';
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { food } from '../../data/food';
 
 const Stories = () => {
+    const navigation = useNavigation();
+
     return (
         <View style={{ margin: 13 }}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {food.map((story, index) => (
-                    <View key={index} style={{alignItems: 'center'}}>
-                        <Image source={{ uri: story.image }}
-                            style={styles.story} />
-                        <Text style={{color: 'white', marginTop: 10, fontSize: 11}}>{
-                            // story.item.length > 8 ? story.item.slice(0, 8).toLowerCase() + '...'
-                            // : story.item.toLowerCase()
-                            story.item
-                        }</Text>
-                    </View>
-                ))}
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ alignItems: 'center' }}
+            >
+                {food.length > 0 ? (
+                    food.map((story, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={{ alignItems: 'center' }}
+                            onPress={() => navigation.navigate('ReelsScreen')}
+                        >
+                            <Image
+                                source={{ uri: story.image }}
+                                style={styles.story}
+                            />
+                            <Text style={{ color: 'white', marginTop: 10, fontSize: 11 }}>
+                                {story.item}
+                            </Text>
+                        </TouchableOpacity>
+                    ))
+                ) : (
+                    <Text style={{ color: 'white', fontSize: 14 }}>No stories available</Text>
+                )}
             </ScrollView>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     story: {
@@ -31,6 +46,6 @@ const styles = StyleSheet.create({
         borderWidth: 2.4,
         borderColor: '#0195F5',
     },
-})
+});
 
-export default Stories
+export default Stories;

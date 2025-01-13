@@ -2,7 +2,6 @@ import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import React from 'react'
 import ProfileHeader from '../components/profile/ProfileHeader'
 import Profile from '../components/profile/Profile'
-import BottomTabs, { bottomTabIcons } from '../components/home/BottomTabs';
 
 
 const ProfileScreen = () => {
@@ -10,7 +9,6 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <ProfileHeader/>
       <Profile />
-      <BottomTabs icons={bottomTabIcons}/>
     </SafeAreaView>
   )
 }

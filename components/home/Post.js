@@ -1,7 +1,11 @@
 
 import React from 'react'
+import Stories from '../home/Stories'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { Dimensions } from 'react-native';
+
+const { height: screenHeight } = Dimensions.get('window');
 
 const Post = ({ post, isFullScreen = false }) => {
   const navigation = useNavigation()
@@ -9,20 +13,17 @@ const Post = ({ post, isFullScreen = false }) => {
     navigation.navigate('ReelsScreen')
   }
 
-  const containerStyle = isFullScreen
-    ? [styles.container, { height: '100%' }]
-    : styles.container
+  const containerStyle = [styles.container, { height: screenHeight }]
 
   return (
-    <TouchableOpacity
+    <View
       style={containerStyle}
-      onPress={!isFullScreen ? handlePress : null}
       activeOpacity={0.8}
-      disabled={isFullScreen}
     >
+      <Stories />
       <PostImage post={post} />
       <OverlayContent post={post} />
-    </TouchableOpacity>
+    </View>
   )
 }
 
@@ -33,10 +34,10 @@ const PostImage = ({ post }) => (
 )
 
 const OverlayContent = ({ post }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
-    <>
+    <View style={styles.overlayContainer}>
       <TouchableOpacity style={styles.actionButton}>
         <View style={styles.actionButtonContent}>
           <Text style={styles.actionButtonText}>Ponovi čitavu narudžbu</Text>
@@ -118,9 +119,10 @@ const OverlayContent = ({ post }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </>
-  )
-}
+    </View>
+  );
+};
+
 
 const IconWithText = ({ icon, text }) => (
   <View style={styles.iconWithText}>
@@ -132,7 +134,7 @@ const IconWithText = ({ icon, text }) => (
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    marginBottom: 20,
+    height: screenHeight, // Ensure the container height is the full screen height
   },
   linkText: {
     color: '#fff',
@@ -140,21 +142,31 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: 700, 
+    flex: 1,
   },
-  image: {
-    height: '100%',
-    resizeMode: 'cover',
+  overlayContainer: {
+    position: 'absolute', // Ensure the overlay is positioned over the image
+    width: '100%',       // Match the image width
+    height: screenHeight, // Match the image height dynamically
+    top: 0,              // Align with the top of the image
+    left: 0,
+    bottom: 53,
   },
   actionButton: {
     position: 'absolute',
-    top: 530,
     left: 20,
     backgroundColor: '#0195F5',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
+    bottom:'35%',
     width: 280,
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: undefined,
+    resizeMode: 'cover',
   },
   actionButtonText: {
     color: '#fff',
@@ -165,6 +177,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    bottom:0,
     width: '100%',
   },
   arrowIcon: {
@@ -173,7 +186,7 @@ const styles = StyleSheet.create({
   },
   overlayContent: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 165,
     left: 20,
     right: 20,
   },
